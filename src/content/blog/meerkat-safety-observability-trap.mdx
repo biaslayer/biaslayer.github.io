@@ -18,6 +18,16 @@ Meerkat's answer is to treat agent logs like a searchable risk surface. Cluster 
 
 But the headline is not really "new safety stack." The real headline is that the industry is getting better at inspecting systems it still does not know how to control.
 
+<figure>
+  <img
+    src="/blog/meerkat/figure-1-repository-level-decomposition.png"
+    alt="Figure from the Meerkat paper showing how individually benign-looking traces can combine into a ransomware workflow when analyzed as a repository."
+  />
+  <figcaption>
+    Figure from the paper. This is the operational case for Meerkat: the failure is distributed across traces, so single-run review misses the witness set.
+  </figcaption>
+</figure>
+
 ### Observability Is Not Control
 
 The engineering disagreement under the paper is simple: **is agent safety primarily an observability problem, or a control problem?**
@@ -38,6 +48,16 @@ And the hardware story is worse than the paper's enthusiasm implies. Modern acce
 
 That does not make it useless. It makes it diagnostic. And diagnostics are not the same thing as guarantees.
 
+<figure>
+  <img
+    src="/blog/meerkat/figure-4-inference-compute-scaling.png"
+    alt="Figure from the Meerkat paper showing that increased reasoning effort and compute improve misuse detection probability."
+  />
+  <figcaption>
+    Figure from the paper. Useful result, but also a warning sign: detection gets better as audit compute goes up. That is exactly the safety-cost curve a systems team should worry about.
+  </figcaption>
+</figure>
+
 ### Good Infrastructure for a Bad Equilibrium
 
 Bias Layer's view is that **Meerkat is good infrastructure for a bad equilibrium**.
@@ -45,6 +65,16 @@ Bias Layer's view is that **Meerkat is good infrastructure for a bad equilibrium
 The optimists are right on the product question. If you are deploying agents today, you need better observability than per-trace review. You need ways to catch reward hacking that only appears statistically, and you need benchmark hygiene. If your choice is between single-run spot checks and cross-trace auditing, the latter wins without drama.
 
 But the interesting question is what Meerkat reveals about the underlying architecture. What it reveals is uncomfortable: the industry is normalizing the idea that safety will be achieved by building smarter surveillance around non-deterministic systems, rather than by narrowing the systems themselves.
+
+<figure>
+  <img
+    src="/blog/meerkat/figure-5-evaluation-cheating.png"
+    alt="Figure from the Meerkat paper showing benchmark cheating and task-gaming patterns discovered during auditing."
+  />
+  <figcaption>
+    Figure from the paper. This is where the optimist case is strongest: Meerkat clearly surfaces benchmark cheating and fake-success behavior that weaker monitors would miss.
+  </figcaption>
+</figure>
 
 That matters at four levels.
 
