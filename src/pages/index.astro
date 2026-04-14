@@ -1,0 +1,69 @@
+---
+import Layout from "../components/Layout.astro";
+import SearchPanel from "../components/SearchPanel.astro";
+import { formatDate, getAllPosts, getReadingTimeText } from "../lib/blog";
+
+const posts = await getAllPosts();
+const featuredPost = posts[0];
+---
+
+<Layout
+  title="Developer Notes, Editorials, and Daily Signals"
+  description="A clean developer blog built for daily publishing, sharp opinions, and readable technical writing."
+  posts={posts}
+>
+  <section class="mx-auto max-w-reading">
+    <div class="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 shadow-soft sm:p-8">
+      <p class="font-heading text-sm uppercase tracking-[0.28em] text-accent-300">Developer Blog</p>
+      <h1 class="mt-4 font-heading text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+        Daily writing with a docs-like shell and room to think.
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg leading-8 text-ink-300">
+        Bias Layer is a premium-feeling Astro blog tuned for publishing one sharp technical post at a time. Posts are written in MDX, automatically indexed, grouped in the sidebar, and rendered with a calm reading experience inspired by modern developer docs.
+      </p>
+    </div>
+
+    {featuredPost && (
+      <a
+        href={`/blog/${featuredPost.slug}/`}
+        class="mt-8 block rounded-[2rem] border border-accent-500/20 bg-accent-500/[0.08] p-6 transition hover:border-accent-500/40 hover:bg-accent-500/[0.12] sm:p-8"
+      >
+        <p class="font-heading text-sm uppercase tracking-[0.26em] text-accent-300">Latest Post</p>
+        <h2 class="mt-3 font-heading text-3xl font-semibold text-white">{featuredPost.data.title}</h2>
+        <p class="mt-4 text-lg leading-8 text-ink-200">{featuredPost.data.excerpt}</p>
+        <div class="mt-5 flex flex-wrap gap-3 text-xs uppercase tracking-[0.18em] text-ink-400">
+          <span>{formatDate(featuredPost.data.date)}</span>
+          <span>{getReadingTimeText(featuredPost)}</span>
+          <span>{featuredPost.data.tags.join(" · ")}</span>
+        </div>
+      </a>
+    )}
+
+    <div class="mt-10">
+      <SearchPanel posts={posts} />
+    </div>
+
+    <section class="mt-10 space-y-4">
+      {posts.map((post) => (
+        <a
+          href={`/blog/${post.slug}/`}
+          class="block rounded-[1.75rem] border border-white/10 bg-white/[0.02] p-5 transition hover:border-white/20 hover:bg-white/[0.04]"
+        >
+          <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            <div class="min-w-0">
+              <h2 class="font-heading text-2xl font-semibold text-white">{post.data.title}</h2>
+              <p class="mt-3 text-base leading-8 text-ink-300">{post.data.excerpt}</p>
+            </div>
+            <div class="shrink-0 text-xs uppercase tracking-[0.2em] text-ink-500">
+              {formatDate(post.data.date)}
+            </div>
+          </div>
+          <div class="mt-4 flex flex-wrap gap-3 text-xs uppercase tracking-[0.18em] text-ink-500">
+            <span>{getReadingTimeText(post)}</span>
+            <span>{post.data.tags.join(" · ")}</span>
+          </div>
+        </a>
+      ))}
+    </section>
+  </section>
+</Layout>

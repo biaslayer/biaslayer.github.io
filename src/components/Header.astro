@@ -1,0 +1,38 @@
+---
+type NavItem = {
+  href: string;
+  label: string;
+};
+
+interface Props {
+  navItems?: NavItem[];
+}
+
+const { navItems = [] } = Astro.props;
+---
+
+<header class="sticky top-0 z-40 border-b border-white/10 bg-ink-950/85 backdrop-blur">
+  <div class="mx-auto flex h-16 max-w-[1600px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center gap-3">
+      <button
+        type="button"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-sm text-ink-100 transition hover:border-white/20 hover:bg-white/10 lg:hidden"
+        data-sidebar-toggle
+        aria-label="Open navigation"
+      >
+        <span class="font-heading text-lg">≡</span>
+      </button>
+      <a href="/" class="font-heading text-sm font-semibold uppercase tracking-[0.28em] text-accent-300">
+        Bias Layer
+      </a>
+    </div>
+
+    <nav class="hidden items-center gap-5 text-sm text-ink-300 md:flex">
+      {navItems.map((item) => (
+        <a href={item.href} class="transition hover:text-accent-300">
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>

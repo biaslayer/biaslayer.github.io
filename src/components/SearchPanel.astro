@@ -1,0 +1,100 @@
+---
+import { formatDate, getReadingTimeText, type BlogPost } from "../lib/blog";
+
+interface Props {
+  posts: BlogPost[];
+}
+
+const { posts } = Astro.props;
+const searchData = posts.map((post) => ({
+  title: post.data.title,
+  excerpt: post.data.excerpt,
+  tags: post.data.tags,
+  slug: post.slug,
+  date: formatDate(post.data.date),
+  readingTime: getReadingTimeText(post)
+}));
+const uniqueTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
+---
+
+<section class="rounded-[2rem] border border-white/10 bg-white/[0.03] p-5 shadow-soft">
+  <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+      <div>
+        <p class="font-heading text-sm uppercase tracking-[0.26em] text-accent-300">Archive</p>
+        <h2 class="mt-2 font-heading text-2xl font-semibold text-white">Find a post fast</h2>
+      </div>
+      <input
+        id="search-input"
+        type="search"
+        placeholder="Search titles, excerpts, or tags"
+        class="w-full rounded-2xl border border-white/10 bg-ink-900/80 px-4 py-3 text-sm text-ink-100 outline-none transition placeholder:text-ink-500 focus:border-accent-500/50 md:max-w-sm"
+      />
+    </div>
+
+    <div class="flex flex-wrap gap-2">
+      <button class="tag-filter rounded-full border border-accent-500/30 bg-accent-500/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] text-accent-300" data-tag="all">
+        All
+      </button>
+      {uniqueTags.map((tag) => (
+        <button class="tag-filter rounded-full border border-white/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] text-ink-300 transition hover:border-white/20 hover:text-white" data-tag={tag}>
+          {tag}
+        </button>
+      ))}
+    </div>
+
+    <div id="search-results" class="grid gap-3 md:grid-cols-2"></div>
+  </div>
+</section>
+
+<script define:vars={{ searchData }}>
+  const input = document.getElementById("search-input");
+  const results = document.getElementById("search-results");
+  const buttons = Array.from(document.querySelectorAll(".tag-filter"));
+  let activeTag = "all";
+
+  const render = () => {
+    const query = input instanceof HTMLInputElement ? input.value.trim().toLowerCase() : "";
+    const filtered = searchData.filter((post) => {
+      const haystack = `${post.title} ${post.excerpt} ${post.tags.join(" ")}`.toLowerCase();
+      const matchesQuery = !query || haystack.includes(query);
+      const matchesTag = activeTag === "all" || post.tags.includes(activeTag);
+      return matchesQuery && matchesTag;
+    });
+
+    if (!results) return;
+
+    if (!filtered.length) {
+      results.innerHTML = `<p class="rounded-2xl border border-dashed border-white/10 px-4 py-6 text-sm text-ink-400">No posts match that search yet.</p>`;
+      return;
+    }
+
+    results.innerHTML = filtered
+      .map(
+        (post) => `
+          <a href="/blog/${post.slug}/" class="rounded-2xl border border-white/10 bg-ink-900/70 p-4 transition hover:border-accent-500/40 hover:bg-ink-900">
+            <p class="font-heading text-lg font-semibold text-white">${post.title}</p>
+            <p class="mt-2 line-clamp-3 text-sm leading-7 text-ink-300">${post.excerpt}</p>
+            <div class="mt-4 flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.18em] text-ink-500">
+              <span>${post.date}</span>
+              <span>${post.readingTime}</span>
+              <span>${post.tags.join(" · ")}</span>
+            </div>
+          </a>
+        `
+      )
+      .join("");
+  };
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      activeTag = button.dataset.tag || "all";
+      buttons.forEach((item) => item.classList.remove("border-accent-500/30", "bg-accent-500/10", "text-accent-300"));
+      button.classList.add("border-accent-500/30", "bg-accent-500/10", "text-accent-300");
+      render();
+    });
+  });
+
+  input?.addEventListener("input", render);
+  render();
+</script>

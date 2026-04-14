@@ -1,0 +1,65 @@
+---
+import type { BlogPost } from "../lib/blog";
+import { formatDate, groupPostsByYear } from "../lib/blog";
+
+interface Props {
+  posts: BlogPost[];
+  activeSlug?: string;
+  mobile?: boolean;
+}
+
+const { posts, activeSlug, mobile = false } = Astro.props;
+const groupedPosts = Object.entries(groupPostsByYear(posts));
+---
+
+<aside
+  id={mobile ? "site-sidebar" : undefined}
+  class:list={[
+    "w-[18rem] border-r border-white/10 bg-ink-950/95 px-4 py-6 backdrop-blur",
+    mobile
+      ? "fixed inset-y-0 left-0 z-50 -translate-x-full transition duration-300 lg:hidden"
+      : "sticky top-16 z-20 h-[calc(100vh-4rem)] overflow-y-auto"
+  ]}
+>
+  <div class="space-y-6 pt-12 lg:pt-0">
+    <div class="space-y-2 border-b border-white/10 pb-5">
+      <p class="font-heading text-xs uppercase tracking-[0.28em] text-accent-300">Daily Writing</p>
+      <p class="text-sm leading-7 text-ink-300">
+        One signal, one argument, one publishable post. Add a new `.mdx` file and the site picks it up automatically.
+      </p>
+    </div>
+
+    <nav aria-label="Blog posts" class="space-y-4">
+      {groupedPosts.map(([year, yearPosts]) => (
+        <details open={year === String(new Date().getFullYear())} class="group rounded-2xl border border-white/5 bg-white/[0.02]">
+          <summary class="flex cursor-pointer list-none items-center justify-between px-4 py-3 font-heading text-sm font-medium text-ink-100">
+            <span>{year}</span>
+            <span class="text-xs text-ink-500 transition group-open:rotate-45">+</span>
+          </summary>
+          <div class="space-y-1 px-2 pb-2">
+            {yearPosts.map((post) => {
+              const isActive = activeSlug === post.slug;
+              return (
+                <a
+                  href={`/blog/${post.slug}/`}
+                  class:list={[
+                    "block rounded-xl px-3 py-3 transition",
+                    isActive
+                      ? "border border-accent-500/30 bg-accent-500/10 text-white"
+                      : "border border-transparent text-ink-300 hover:border-white/10 hover:bg-white/5 hover:text-white"
+                  ]}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  <span class="block font-heading text-sm font-medium leading-5">{post.data.title}</span>
+                  <span class="mt-1 block text-xs uppercase tracking-[0.18em] text-ink-500">
+                    {formatDate(post.data.date)}
+                  </span>
+                </a>
+              );
+            })}
+          </div>
+        </details>
+      ))}
+    </nav>
+  </div>
+</aside>

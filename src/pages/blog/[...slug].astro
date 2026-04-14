@@ -1,0 +1,46 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../components/Layout.astro";
+import { formatDate, getAllPosts, getReadingTimeText } from "../../lib/blog";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const posts = await getAllPosts();
+const { Content, headings } = await post.render();
+---
+
+<Layout
+  title={post.data.title}
+  description={post.data.excerpt}
+  posts={posts}
+  activeSlug={post.slug}
+  headings={headings}
+>
+  <article class="mx-auto max-w-reading">
+    <header class="border-b border-white/10 pb-8">
+      <p class="font-heading text-sm uppercase tracking-[0.28em] text-accent-300">
+        {post.data.tags.join(" · ")}
+      </p>
+      <h1 class="mt-4 font-heading text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+        {post.data.title}
+      </h1>
+      <p class="mt-5 text-lg leading-8 text-ink-300">{post.data.excerpt}</p>
+      <div class="mt-6 flex flex-wrap gap-3 text-xs uppercase tracking-[0.18em] text-ink-500">
+        <span>{formatDate(post.data.date)}</span>
+        <span>{getReadingTimeText(post)}</span>
+      </div>
+    </header>
+
+    <div class="prose prose-invert mt-10 max-w-none">
+      <Content />
+    </div>
+  </article>
+</Layout>

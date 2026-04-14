@@ -1,0 +1,111 @@
+---
+import "../styles/global.css";
+import Header from "./Header.astro";
+import Sidebar from "./Sidebar.astro";
+import type { BlogPost } from "../lib/blog";
+
+type Heading = {
+  depth: number;
+  slug: string;
+  text: string;
+};
+
+interface Props {
+  title: string;
+  description: string;
+  posts: BlogPost[];
+  activeSlug?: string;
+  headings?: Heading[];
+}
+
+const { title, description, posts, activeSlug, headings = [] } = Astro.props;
+const pageTitle = `${title} | Bias Layer`;
+const navItems = [
+  { href: "/", label: "Archive" },
+  { href: "/rss.xml", label: "RSS" }
+];
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{pageTitle}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700;800&family=Kalam:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <Header navItems={navItems} />
+    <div class="mx-auto flex max-w-[1600px]">
+      <div class="hidden w-[18rem] shrink-0 lg:block">
+        <Sidebar posts={posts} activeSlug={activeSlug} />
+      </div>
+      <div class="fixed inset-0 z-40 hidden bg-black/60 backdrop-blur-sm lg:hidden" data-sidebar-overlay></div>
+      <div class="lg:hidden">
+        <Sidebar posts={posts} activeSlug={activeSlug} mobile />
+      </div>
+
+      <main class="min-w-0 flex-1 px-4 pb-20 pt-8 sm:px-6 lg:px-10">
+        <div class="mx-auto flex max-w-[1200px] gap-12">
+          <div class="min-w-0 flex-1">
+            <slot />
+          </div>
+
+          {headings.length > 1 && (
+            <aside class="sticky top-24 hidden h-fit w-64 shrink-0 xl:block">
+              <div class="rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-5">
+                <p class="font-heading text-xs uppercase tracking-[0.24em] text-accent-300">On This Page</p>
+                <nav class="mt-4 space-y-2">
+                  {headings
+                    .filter((heading) => heading.depth <= 3)
+                    .map((heading) => (
+                      <a
+                        href={`#${heading.slug}`}
+                        class:list={[
+                          "block rounded-lg px-3 py-2 text-sm leading-6 transition hover:bg-white/5 hover:text-white",
+                          heading.depth === 3 ? "ml-4 text-ink-400" : "text-ink-300"
+                        ]}
+                      >
+                        {heading.text}
+                      </a>
+                    ))}
+                </nav>
+              </div>
+            </aside>
+          )}
+        </div>
+      </main>
+    </div>
+
+    <script>
+      const body = document.body;
+      const sidebar = document.getElementById("site-sidebar");
+      const toggle = document.querySelector("[data-sidebar-toggle]");
+      const overlay = document.querySelector("[data-sidebar-overlay]");
+
+      const openSidebar = () => {
+        body.dataset.sidebarOpen = "true";
+        sidebar?.classList.remove("-translate-x-full");
+        overlay?.classList.remove("hidden");
+      };
+
+      const closeSidebar = () => {
+        body.dataset.sidebarOpen = "false";
+        sidebar?.classList.add("-translate-x-full");
+        overlay?.classList.add("hidden");
+      };
+
+      toggle?.addEventListener("click", openSidebar);
+      overlay?.addEventListener("click", closeSidebar);
+      window.addEventListener("resize", () => {
+        if (window.innerWidth >= 1024) closeSidebar();
+      });
+    </script>
+  </body>
+</html>
