@@ -25,21 +25,21 @@ const { Content, headings } = await post.render();
   headings={headings}
 >
   <article class="mx-auto max-w-reading">
-    <header class="border-b border-white/10 pb-8 dark:border-white/10 light:border-gray-200">
+    <header class="border-b border-white/10 pb-8">
       <p class="font-heading text-sm uppercase tracking-[0.28em] text-accent-300">
         {post.data.tags.join(" · ")}
       </p>
-      <h1 class="mt-4 font-heading text-4xl font-semibold tracking-tight text-white sm:text-5xl dark:text-white light:text-black">
+      <h1 class="mt-4 font-heading text-4xl font-semibold tracking-tight text-white sm:text-5xl">
         {post.data.title}
       </h1>
-      <p class="mt-5 text-lg leading-8 text-ink-300 dark:text-ink-300 light:text-gray-600">{post.data.excerpt}</p>
-      <div class="mt-6 flex flex-wrap gap-3 text-xs uppercase tracking-[0.18em] text-ink-500 dark:text-ink-500 light:text-gray-500">
+      <p class="mt-5 text-lg leading-8 text-ink-300">{post.data.excerpt}</p>
+      <div class="mt-6 flex flex-wrap gap-3 text-xs uppercase tracking-[0.18em] text-ink-500">
         <span>{formatDate(post.data.date)}</span>
         <span>{getReadingTimeText(post)}</span>
       </div>
     </header>
 
-    <div class="prose prose-invert mt-10 max-w-none dark:prose-invert light:prose">
+    <div class="prose prose-invert mt-10 max-w-none">
       <Content />
     </div>
   </article>
