@@ -19,6 +19,18 @@ export default {
           200: "#e5e7eb",
           100: "#f4f4f5"
         },
+        light: {
+          950: "#ffffff",
+          900: "#fafafa",
+          800: "#f4f4f5",
+          700: "#e4e4e7",
+          600: "#d4d4d8",
+          500: "#a1a1aa",
+          400: "#71717a",
+          300: "#52525b",
+          200: "#3f3f46",
+          100: "#27272a"
+        },
         accent: {
           500: "#77e0c6",
           400: "#93edd4",
@@ -34,7 +46,8 @@ export default {
         reading: "48rem"
       },
       boxShadow: {
-        soft: "0 0 0 1px rgba(255, 255, 255, 0.04), 0 24px 80px rgba(0, 0, 0, 0.25)"
+        soft: "0 0 0 1px rgba(255, 255, 255, 0.04), 0 24px 80px rgba(0, 0, 0, 0.25)",
+        "soft-light": "0 0 0 1px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.08)"
       }
     }
   },

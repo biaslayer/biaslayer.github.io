@@ -17,19 +17,35 @@ const searchData = posts.map((post) => ({
 const uniqueTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
 ---
 
-<section class="rounded-[2rem] border border-white/10 bg-white/[0.03] p-5 shadow-soft">
+<section class="rounded-[2rem] border border-white/10 bg-white/[0.03] p-5 shadow-soft dark:bg-white/[0.03] light:border-light-700/20 light:bg-light-900/50 light:shadow-soft-light">
   <div class="flex flex-col gap-4">
     <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-      <div>
-        <p class="font-heading text-sm uppercase tracking-[0.26em] text-accent-300">Archive</p>
-        <h2 class="mt-2 font-heading text-2xl font-semibold text-white">Find a post fast</h2>
+      <div class="flex items-center gap-4">
+        <div>
+          <p class="font-heading text-sm uppercase tracking-[0.26em] text-accent-300">Archive</p>
+          <h2 class="mt-2 font-heading text-2xl font-semibold text-white light:text-light-950">Find a post fast</h2>
+        </div>
       </div>
-      <input
-        id="search-input"
-        type="search"
-        placeholder="Search titles, excerpts, or tags"
-        class="w-full rounded-2xl border border-white/10 bg-ink-900/80 px-4 py-3 text-sm text-ink-100 outline-none transition placeholder:text-ink-500 focus:border-accent-500/50 md:max-w-sm"
-      />
+      <div class="flex items-center gap-3">
+        <button
+          id="theme-toggle"
+          class="rounded-full border border-white/10 bg-white/5 p-2 text-ink-300 transition hover:border-white/20 hover:text-white light:border-light-700/30 light:bg-light-800/50 light:text-light-400 light:hover:border-light-700/50 light:hover:text-light-950"
+          aria-label="Toggle theme"
+        >
+          <svg class="h-5 w-5 dark:block light:hidden" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+          </svg>
+          <svg class="h-5 w-5 hidden dark:block light:block" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+          </svg>
+        </button>
+        <input
+          id="search-input"
+          type="search"
+          placeholder="Search titles, excerpts, or tags"
+          class="w-full rounded-2xl border border-white/10 bg-ink-900/80 px-4 py-3 text-sm text-ink-100 outline-none transition placeholder:text-ink-500 focus:border-accent-500/50 md:max-w-sm dark:border-white/10 dark:bg-ink-900/80 light:border-light-700/30 light:bg-light-800/50 light:text-light-200 light:placeholder:text-light-400"
+        />
+      </div>
     </div>
 
     <div class="flex flex-wrap gap-2">
@@ -37,7 +53,7 @@ const uniqueTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
         All
       </button>
       {uniqueTags.map((tag) => (
-        <button class="tag-filter rounded-full border border-white/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] text-ink-300 transition hover:border-white/20 hover:text-white" data-tag={tag}>
+        <button class="tag-filter rounded-full border border-white/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] text-ink-300 transition hover:border-white/20 hover:text-white light:border-light-700/30 light:text-light-400 light:hover:border-light-700/50 light:hover:text-light-950" data-tag={tag}>
           {tag}
         </button>
       ))}
@@ -51,9 +67,22 @@ const uniqueTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
   const input = document.getElementById("search-input");
   const results = document.getElementById("search-results");
   const buttons = Array.from(document.querySelectorAll(".tag-filter"));
+  const themeToggle = document.getElementById("theme-toggle");
   let activeTag = "all";
 
+  const setTheme = (theme) => {
+    document.documentElement.classList.remove("dark", "light");
+    document.documentElement.classList.add(theme);
+    localStorage.setItem("theme", theme);
+  };
+
+  themeToggle?.addEventListener("click", () => {
+    const current = document.documentElement.classList.contains("light") ? "light" : "dark";
+    setTheme(current === "dark" ? "light" : "dark");
+  });
+
   const render = () => {
+    const isLight = document.documentElement.classList.contains("light");
     const query = input instanceof HTMLInputElement ? input.value.trim().toLowerCase() : "";
     const filtered = searchData.filter((post) => {
       const haystack = `${post.title} ${post.excerpt} ${post.tags.join(" ")}`.toLowerCase();
@@ -65,17 +94,17 @@ const uniqueTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
     if (!results) return;
 
     if (!filtered.length) {
-      results.innerHTML = `<p class="rounded-2xl border border-dashed border-white/10 px-4 py-6 text-sm text-ink-400">No posts match that search yet.</p>`;
+      results.innerHTML = `<p class="rounded-2xl border border-dashed border-white/10 px-4 py-6 text-sm text-ink-400 light:border-light-700/30 light:text-light-400">No posts match that search yet.</p>`;
       return;
     }
 
     results.innerHTML = filtered
       .map(
         (post) => `
-          <a href="/blog/${post.slug}/" class="rounded-2xl border border-white/10 bg-ink-900/70 p-4 transition hover:border-accent-500/40 hover:bg-ink-900">
-            <p class="font-heading text-lg font-semibold text-white">${post.title}</p>
-            <p class="mt-2 line-clamp-3 text-sm leading-7 text-ink-300">${post.excerpt}</p>
-            <div class="mt-4 flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.18em] text-ink-500">
+          <a href="/blog/${post.slug}/" class="rounded-2xl border border-white/10 bg-ink-900/70 p-4 transition hover:border-accent-500/40 hover:bg-ink-900 light:border-light-700/30 light:bg-light-800/50 light:hover:border-accent-500/40 light:hover:bg-light-700/30">
+            <p class="font-heading text-lg font-semibold text-white light:text-light-950">${post.title}</p>
+            <p class="mt-2 line-clamp-3 text-sm leading-7 text-ink-300 light:text-light-300">${post.excerpt}</p>
+            <div class="mt-4 flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.18em] text-ink-500 light:text-light-400">
               <span>${post.date}</span>
               <span>${post.readingTime}</span>
               <span>${post.tags.join(" · ")}</span>
