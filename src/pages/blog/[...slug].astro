@@ -29,10 +29,10 @@ const { Content, headings } = await post.render();
       <p class="font-heading text-sm uppercase tracking-[0.28em] text-accent-300">
         {post.data.tags.join(" · ")}
       </p>
-      <h1 class="mt-4 font-heading text-4xl font-semibold tracking-tight text-white sm:text-5xl light:text-light-950">
+      <h1 class="mt-4 font-heading text-4xl font-semibold tracking-tight text-white sm:text-5xl light:text-light-900">
         {post.data.title}
       </h1>
-      <p class="mt-5 text-lg leading-8 text-ink-300 light:text-light-300">{post.data.excerpt}</p>
+      <p class="mt-5 text-lg leading-8 text-ink-300 light:text-light-600">{post.data.excerpt}</p>
       <div class="mt-6 flex flex-wrap gap-3 text-xs uppercase tracking-[0.18em] text-ink-500 light:text-light-400">
         <span>{formatDate(post.data.date)}</span>
         <span>{getReadingTimeText(post)}</span>

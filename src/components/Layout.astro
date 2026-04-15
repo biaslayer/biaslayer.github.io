@@ -66,7 +66,7 @@ const navItems = [
 
           {headings.length > 1 && (
             <aside class="sticky top-24 hidden h-fit w-64 shrink-0 xl:block">
-              <div class="rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-5 dark:border-white/10 dark:bg-white/[0.03] light:border-light-700/20 light:bg-light-900/50">
+              <div class="rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-5 dark:border-white/10 dark:bg-white/[0.03] light:border-light-700/30 light:bg-white">
                 <p class="font-heading text-xs uppercase tracking-[0.24em] text-accent-300">On This Page</p>
                 <nav class="mt-4 space-y-2">
                   {headings
@@ -75,8 +75,8 @@ const navItems = [
                       <a
                         href={`#${heading.slug}`}
                         class:list={[
-                          "block rounded-lg px-3 py-2 text-sm leading-6 transition hover:bg-white/5 hover:text-white dark:hover:bg-white/5 dark:hover:text-white light:hover:bg-light-800/50 light:hover:text-light-950",
-                          heading.depth === 3 ? "text-ink-400 dark:text-ink-400 light:text-light-400" : "text-ink-300 dark:text-ink-300 light:text-light-500"
+                          "block rounded-lg px-3 py-2 text-sm leading-6 transition hover:bg-white/5 hover:text-white dark:hover:bg-white/5 dark:hover:text-white light:hover:bg-light-100 light:hover:text-light-900",
+                          heading.depth === 3 ? "text-ink-400 dark:text-ink-400 light:text-light-500" : "text-ink-300 dark:text-ink-300 light:text-light-600"
                         ]}
                       >
                         {heading.text}

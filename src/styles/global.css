@@ -24,10 +24,9 @@ body {
 }
 
 html.light body {
-  @apply bg-light-950 text-light-300;
+  @apply bg-white text-light-700;
   background-image:
-    radial-gradient(circle at top, rgba(119, 224, 198, 0.06), transparent 28%),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.02), transparent 20%);
+    radial-gradient(circle at top, rgba(119, 224, 198, 0.08), transparent 28%);
 }
 
 h1,
@@ -71,22 +70,22 @@ samp {
 }
 
 html.light .prose {
-  --tw-prose-body: rgb(63 63 70);
-  --tw-prose-headings: rgb(24 24 27);
-  --tw-prose-lead: rgb(82 82 89);
-  --tw-prose-links: rgb(16 185 129);
-  --tw-prose-bold: rgb(24 24 27);
-  --tw-prose-counters: rgb(113 113 122);
-  --tw-prose-bullets: rgb(161 161 170);
-  --tw-prose-hr: rgba(0, 0, 0, 0.08);
-  --tw-prose-quotes: rgb(39 39 42);
-  --tw-prose-quote-borders: rgba(16, 185, 129, 0.4);
-  --tw-prose-captions: rgb(113 113 122);
-  --tw-prose-code: rgb(6 78 59);
-  --tw-prose-pre-code: rgb(63 63 70);
+  --tw-prose-body: rgb(55 65 81);
+  --tw-prose-headings: rgb(17 24 39);
+  --tw-prose-lead: rgb(75 85 99);
+  --tw-prose-links: rgb(5 150 105);
+  --tw-prose-bold: rgb(17 24 39);
+  --tw-prose-counters: rgb(107 114 128);
+  --tw-prose-bullets: rgb(107 114 128);
+  --tw-prose-hr: rgba(0, 0, 0, 0.1);
+  --tw-prose-quotes: rgb(17 24 39);
+  --tw-prose-quote-borders: rgba(5, 150, 105, 0.5);
+  --tw-prose-captions: rgb(107 114 128);
+  --tw-prose-code: rgb(17 24 39);
+  --tw-prose-pre-code: rgb(55 65 81);
   --tw-prose-pre-bg: transparent;
-  --tw-prose-th-borders: rgba(0, 0, 0, 0.08);
-  --tw-prose-td-borders: rgba(0, 0, 0, 0.06);
+  --tw-prose-th-borders: rgba(0, 0, 0, 0.1);
+  --tw-prose-td-borders: rgba(0, 0, 0, 0.05);
 }
 
 .prose :where(h1, h2, h3):not(:where([class~="not-prose"] *)) {
@@ -94,7 +93,7 @@ html.light .prose {
 }
 
 html.light .prose :where(h1, h2, h3):not(:where([class~="not-prose"] *)) {
-  @apply text-light-950;
+  @apply text-light-900;
 }
 
 .prose :where(p, li):not(:where([class~="not-prose"] *)) {
@@ -102,7 +101,7 @@ html.light .prose :where(h1, h2, h3):not(:where([class~="not-prose"] *)) {
 }
 
 html.light .prose :where(p, li):not(:where([class~="not-prose"] *)) {
-  @apply text-light-300;
+  @apply text-light-600;
 }
 
 .prose :where(code):not(pre code):not(:where([class~="not-prose"] *)) {
@@ -110,7 +109,7 @@ html.light .prose :where(p, li):not(:where([class~="not-prose"] *)) {
 }
 
 html.light .prose :where(code):not(pre code):not(:where([class~="not-prose"] *)) {
-  @apply border-light-700/30 bg-light-800/50 text-light-900;
+  @apply border-light-700/40 bg-light-100 text-light-800;
 }
 
 .prose :where(pre):not(:where([class~="not-prose"] *)) {
@@ -118,7 +117,7 @@ html.light .prose :where(code):not(pre code):not(:where([class~="not-prose"] *))
 }
 
 html.light .prose :where(pre):not(:where([class~="not-prose"] *)) {
-  @apply border-light-700/30 bg-light-800/50 shadow-soft-light;
+  @apply border-light-700/40 bg-light-100 shadow-soft-light;
 }
 
 .prose :where(blockquote):not(:where([class~="not-prose"] *)) {
@@ -126,7 +125,7 @@ html.light .prose :where(pre):not(:where([class~="not-prose"] *)) {
 }
 
 html.light .prose :where(blockquote):not(:where([class~="not-prose"] *)) {
-  @apply text-light-200;
+  @apply text-light-700;
 }
 
 .prose :where(hr):not(:where([class~="not-prose"] *)) {
