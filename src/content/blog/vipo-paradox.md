@@ -7,9 +7,9 @@ tag: "ENGINEERING"
 
 ![Overview framework of the proposed Visual Preference Policy Optimization (ViPO)](image.png)
 
-The release of **"Seeing What Matters: Visual Preference Policy Optimization (ViPO) for Visual Generation"** (arXiv:2511.18719) is a prime example of where the generative AI industry stands right now: we are getting exceptionally good at optimizing systems we don't fully control.
+The release of **[Seeing What Matters: Visual Preference Policy Optimization (ViPO) for Visual Generation](https://arxiv.org/pdf/2511.18719)** is a prime example of where the generative AI industry stands right now: we are getting exceptionally good at optimizing systems we don't fully control.
 
-To understand ViPO, you have to understand the bottleneck of moving from generic prompt-to-image demos to production-grade visual assets. Until now, the industry standard for post-training visual models was Group Relative Policy Optimization (GRPO), a technique that treats an entire image or video sequence as a single data point receiving a single scalar score. If an image is a masterpiece but features a six-fingered hand, or a ten-second video is perfect save for a half-second background flicker, a scalar reward simply tells the model "this output is bad." It fails to communicate *where* or *why*. This is "scalar blindness."
+To understand ViPO, you have to understand the bottleneck of moving from generic prompt-to-image demos to production-grade visual assets. Until now, the industry standard for post-training visual models was [Group Relative Policy Optimization (GRPO)](https://arxiv.org/pdf/2402.03300), a technique that treats an entire image or video sequence as a single data point receiving a single scalar score. If an image is a masterpiece but features a six-fingered hand, or a ten-second video is perfect save for a half-second background flicker, a scalar reward simply tells the model "this output is bad." It fails to communicate *where* or *why*. This is "scalar blindness."
 
 ViPO fixes this blindness. It introduces a Perceptual Structuring Module (PSM) that breaks down rewards into spatially and temporally aware advantage maps. Instead of a single score for the entire output, the model receives surgical, pixel-level feedback. It is a transition from holistic nudging to structured, region-wise preference signals. 
 
