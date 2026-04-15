@@ -22,9 +22,15 @@ const { navItems = [] } = Astro.props;
       >
         <span class="font-heading text-lg">≡</span>
       </button>
-      <a href="/" class="group inline-flex items-baseline gap-2 font-heading text-sm font-semibold uppercase tracking-[0.24em] text-white light:text-light-950">
-        <span class="text-ink-100 transition group-hover:text-white dark:text-ink-100 light:text-light-600 light:group-hover:text-light-950">The</span>
-        <span class="text-accent-300 transition group-hover:text-accent-200">Bias Layer</span>
+      <a href="/" class="group inline-flex items-baseline gap-3 font-heading text-sm font-semibold uppercase tracking-[0.2em] text-white light:text-light-950">
+        <span class="relative">
+          <span class="absolute -inset-1 rounded-lg bg-accent-500/20 blur-sm transition group-hover:blur-md group-hover:bg-accent-500/30"></span>
+          <span class="relative text-ink-100 transition group-hover:text-white dark:text-ink-100 light:text-light-600 light:group-hover:text-light-950">The</span>
+        </span>
+        <span class="relative">
+          <span class="absolute -inset-1 rounded-lg bg-gradient-to-r from-accent-400 to-accent-500 blur-sm transition group-hover:blur-md group-hover:from-accent-300 group-hover:to-accent-400"></span>
+          <span class="relative bg-gradient-to-r from-accent-300 to-accent-400 bg-clip-text text-transparent transition group-hover:from-accent-200 group-hover:to-accent-300">Bias Layer</span>
+        </span>
       </a>
     </div>
 
