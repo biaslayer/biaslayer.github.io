@@ -22,13 +22,6 @@ const groupedPosts = Object.entries(groupPostsByYear(posts));
   ]}
 >
   <div class="space-y-6 pt-12 lg:pt-0">
-    <div class="space-y-2 border-b border-white/10 pb-5">
-      <p class="font-heading text-xs uppercase tracking-[0.28em] text-accent-300">Daily Writing</p>
-      <p class="text-sm leading-7 text-ink-300">
-        One signal, one argument, one publishable post. Add a new `.mdx` file and the site picks it up automatically.
-      </p>
-    </div>
-
     <nav aria-label="Blog posts" class="space-y-4">
       {groupedPosts.map(([year, yearPosts]) => (
         <details open={year === String(new Date().getFullYear())} class="group rounded-2xl border border-white/5 bg-white/[0.02]">
