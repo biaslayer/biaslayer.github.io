@@ -15,8 +15,8 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  @apply bg-ink-950 text-ink-200 antialiased;
+html.dark body {
+  @apply bg-ink-950 text-ink-200;
   font-family: "Kalam", cursive;
   background-image:
     radial-gradient(circle at top, rgba(119, 224, 198, 0.12), transparent 28%),
@@ -24,9 +24,34 @@ body {
 }
 
 html.light body {
-  @apply bg-white text-light-700;
+  @apply bg-white text-light-800;
+  font-family: "Kalam", cursive;
   background-image:
     radial-gradient(circle at top, rgba(119, 224, 198, 0.08), transparent 28%);
+}
+
+html.dark {
+  --bg-primary: #09090b;
+  --text-primary: #e5e7eb;
+  --text-secondary: #d1d5db;
+  --text-muted: #9ca3af;
+  --border-color: rgba(255, 255, 255, 0.1);
+}
+
+html.dark {
+  --bg-primary: #09090b;
+  --text-primary: #e5e7eb;
+  --text-secondary: #d1d5db;
+  --text-muted: #9ca3af;
+  --border-color: rgba(255, 255, 255, 0.1);
+}
+
+html.light {
+  --bg-primary: #ffffff;
+  --text-primary: #000000;
+  --text-secondary: #1f2937;
+  --text-muted: #4b5563;
+  --border-color: rgba(0, 0, 0, 0.1);
 }
 
 h1,
