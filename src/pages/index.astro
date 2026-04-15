@@ -13,16 +13,6 @@ const featuredPost = posts[0];
   posts={posts}
 >
   <section class="mx-auto max-w-reading">
-    <div class="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 shadow-soft sm:p-8">
-      <p class="font-heading text-sm uppercase tracking-[0.28em] text-accent-300">Technical Editorial Publication</p>
-      <h1 class="mt-4 font-heading text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-        Bias Layer
-      </h1>
-      <p class="mt-5 max-w-2xl text-lg leading-8 text-ink-300">
-        Systems-minded analysis for engineers. We write about model behavior, control surfaces, inference economics, hardware constraints, and the gap between what the headline says and what the stack is actually doing.
-      </p>
-    </div>
-
     {featuredPost && (
       <a
         href={`/blog/${featuredPost.slug}/`}
