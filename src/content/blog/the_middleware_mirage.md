@@ -1,4 +1,13 @@
-# The Middleware Mirage: Why We Are Bolting Human Verification Onto Probabilistic Engines
+---
+title: "The Middleware Mirage"
+date: "2026-04-16"
+excerpt: "Why We Are Bolting Human Verification Onto Probabilistic Engines"
+tags:
+  - Engineering
+  - Psychology
+  - Law
+---
+
 
 Three seemingly disconnected events occurred this week that tell you exactly where the state of applied artificial intelligence currently sits. First, the [Australian Federal Court issued a new Practice Note](https://www.theguardian.com/law/2026/apr/16/australia-federal-court-warning-lawyers-ai-artificial-intelligence#:~:text=The%20federal%20court%20of%20Australia,AI%20errors%20frustrate%20court%20cases.) explicitly warning legal practitioners of their liability when using AI, mandating that outputs must mirror human memory and verify all citations. Second, a [psychological study published in PsyPost](https://www.psypost.org/new-research-links-personality-traits-to-confidence-in-recognizing-artificial-intelligence-deception/) demonstrated that human personality traits—specifically agreeableness and conscientiousness—drastically distort our capacity to recognize AI deception, creating systemic blind spots. Finally, researchers from Israel proposed a [framework for formalizing "vibe-testing"](https://arxiv.org/pdf/2604.14137v1) attempting to convert the highly subjective feeling of an LLM's usefulness into a structured, user-aware evaluation metric. 
 
