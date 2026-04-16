@@ -1,8 +1,13 @@
+import argparse
 import fitz # PyMuPDF
 import io
 from PIL import Image
 
-pdf_file = fitz.open("META_AGENTS_GSOC_PROPOSAL.pdf")
+parser = argparse.ArgumentParser(description="Extract images from a PDF file")
+parser.add_argument("filename", help="The PDF file to extract images from")
+args = parser.parse_args()
+
+pdf_file = fitz.open(args.filename)
 
 for page_index in range(len(pdf_file)):
     page = pdf_file[page_index]
